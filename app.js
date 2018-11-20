@@ -11,6 +11,7 @@ var register = require('./routes/register');
 var categoryRouter = require('./routes/category');
 var databaseRouter = require('./routes/database');
 const cors = require('cors');
+var fs = require('fs');
 
 var app = express();
 
@@ -63,5 +64,21 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
+
+
+
+//最下面
+var https = require('https')
+    ,fs = require("fs");
+
+var options = {
+    key: fs.readFileSync('./privatekey.pem'),
+    cert: fs.readFileSync('./certificate.pem')
+};
+
+https.createServer(options, app).listen(3011, function () {
+    console.log('Https server listening on port ' + 3011);
+});
+
 
 module.exports = app;
