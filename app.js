@@ -12,7 +12,7 @@ var categoryRouter = require('./routes/category');
 var databaseRouter = require('./routes/database');
 const cors = require('cors');
 var fs = require('fs');
-
+var proxyMiddlewar = require('http-proxy-middleware')
 var app = express();
 
 
@@ -20,14 +20,14 @@ var app = express();
 app.use(cors({ origin: true }));
 
 // //设置跨域访问，在其他设置前先设置这个
-// app.all('*', function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header("Access-Control-Allow-Headers", "X-Requested-With");
-//     res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-//     res.header("X-Powered-By",' 3.2.1')
-//     res.header("Content-Type", "application/json;charset=utf-8");
-//     next();
-// });
+app.all('*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+    res.header("X-Powered-By",' 3.2.1')
+    res.header("Content-Type", "application/json;charset=utf-8");
+    next();
+});
 
 
 // view engine setup
@@ -66,7 +66,10 @@ app.use(function (err, req, res, next) {
 });
 
 
-
+// const proxyPath = 'http://www.google.com'   // 注意，这里只需要IP和端口号就可以了。这个ip我瞎写的
+// const proxyOption = {target: proxyPath,changeOrigin: true}
+// app.use('/api', proxyMiddlewar(proxyOption))  // 下面详细说明这一段
+// app.listen(4000) //表示监听的端口号也就是本地的端口号。用vue-cli构建的项目不需要写这行代码
 //最下面
 var https = require('https')
     ,fs = require("fs");
