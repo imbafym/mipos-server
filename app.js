@@ -10,11 +10,13 @@ var paymentsRouter = require('./routes/payments');
 var register = require('./routes/register');
 var categoryRouter = require('./routes/category');
 var databaseRouter = require('./routes/database');
+var stockRouter = require('./routes/stock');
 const cors = require('cors');
 var fs = require('fs');
 var proxyMiddlewar = require('http-proxy-middleware')
-var app = express();
+var bodyParser = require('body-parser');
 
+var app = express();
 
 // Automatically allow cross-origin requests
 app.use(cors({ origin: true }));
@@ -48,6 +50,9 @@ app.use('/tset', register);
 app.use('/api/payments', paymentsRouter);
 app.use('/api/db', databaseRouter);
 app.use('/api/categories', categoryRouter);
+app.use('/api/stock', stockRouter);
+app.use(bodyParser.json());
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -79,9 +84,14 @@ var options = {
     cert: fs.readFileSync('./certificate.pem')
 };
 
+
+
 https.createServer(options, app).listen(3011, function () {
     console.log('Https server listening on port ' + 3011);
+    console.log('Http server listening on port ' + 3000);
 });
+
+
 
 
 module.exports = app;
