@@ -1,9 +1,10 @@
 {
   "name": "mysqlserve",
   "version": "0.0.0",
+  "main":"app.js",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "electron .",
     "dev": "nodemon ./bin/www",
     "dev:port": "nodemon ./bin/www port"
   },
@@ -20,6 +21,8 @@
     "mysql": "^2.16.0"
   },
   "devDependencies": {
-    "nodemon": "^1.18.4"
+    "electron": "^3.0.12",
+    "http-proxy-middleware": "^0.19.0",
+    "nodemon": "^1.18.9"
   }
 }
