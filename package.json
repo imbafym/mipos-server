@@ -1,7 +1,7 @@
 {
   "name": "mysqlserve",
   "version": "0.0.0",
-  "main":"app.js",
+  "main": "app.js",
   "private": true,
   "scripts": {
     "start": "electron .",
@@ -10,19 +10,21 @@
   },
   "dependencies": {
     "balanced-match": "^1.0.0",
-    "cookie-parser": "~1.4.3",
+    "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
     "express": "~4.16.0",
     "http-errors": "~1.6.2",
     "jade": "~1.11.0",
-    "moment": "^2.22.2",
+    "moment": "^2.24.0",
     "morgan": "~1.9.0",
-    "mysql": "^2.16.0"
+    "mysql": "^2.17.1",
+    "swagger-ui": "^3.22.2",
+    "swagger-ui-dist": "^3.22.2"
   },
   "devDependencies": {
-    "electron": "^3.0.12",
-    "http-proxy-middleware": "^0.19.0",
-    "nodemon": "^1.18.9"
+    "electron": "^3.1.10",
+    "http-proxy-middleware": "^0.19.1",
+    "nodemon": "^1.19.1"
   }
 }

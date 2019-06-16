@@ -62,6 +62,8 @@ router.get('/queryCategoryToday',function(req,res,next){
 router.get('/queryCategoryYesterday',function(req,res,next){
     categoryDao.queryCategoriesProductYesterday(req,res,next);
 });
-
-
+///////////////////////////////
+router.get('/queryTaxes',function(req,res,next){
+    categoryDao.queryTaxes(req,res,next);
+});
 module.exports = router;

@@ -266,6 +266,15 @@ module.exports = {
             });
         });
     },
+    queryTaxes: function (req, res, next) {
+        pool.getConnection(function (err, connection) {
+            connection.query($sql.queryAllTaxes, function (err, result) {
+                console.log(result, err);
+                jsonWrite(res, result);
+                connection.release();
+            });
+        });
+    },
 
 
 };
