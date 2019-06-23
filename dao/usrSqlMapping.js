@@ -7,7 +7,8 @@ var user = {
     delete: 'delete from people where id=?',
     queryById: 'select * from people where id=?',
     queryAll: 'select * from people',
-    login:'select * from people where name=?'
+    login:'select * from people where name=?',
+    getBusinessName: 'select BUSINESS_NAME from miportal.config'
 };
 
 module.exports = user;

@@ -16,7 +16,7 @@ var categories = {
         'DATE(receipts.datenew) between ? AND ?' +
         ' GROUP BY products.category',
     queryCategoriesProductSalesWithDate:
-    'SELECT products.name AS productName,products.taxcat as taxRate, categories.name AS catName, ticketlines.units AS qtys,products.pricesell AS prices, payments.total AS totals ' +
+    'SELECT products.name AS productName,products.taxcat as taxRate, categories.name AS catName, ticketlines.units AS qtys,ticketlines.price AS prices, payments.total AS totals ' +
         'FROM receipts, tickets, ticketlines,payments,products, categories' +
         ' WHERE tickets.id=receipts.id AND payments.receipt = receipts.id AND tickets.id=ticketlines.ticket AND products.id=ticketlines.product AND products.category = categories.id AND ' +
         'DATE(receipts.datenew) between ? AND ?',
