@@ -275,6 +275,70 @@ module.exports = {
             });
         });
     },
+    queryTodayHourlyTran: function (req, res, next) {
+        pool.getConnection(function (err, connection) {
+            connection.query($sql.queryTodayHourlyTran, function (err, result) {
+                console.log(result, err);
+                jsonWrite(res, result);
+                connection.release();
+            });
+        });
+    },
+    queryThisYearMonthlyTran: function (req, res, next) {
+        pool.getConnection(function (err, connection) {
+            connection.query($sql.queryThisYearMonthlyTran, function (err, result) {
+                console.log(result, err);
+                jsonWrite(res, result);
+                connection.release();
+            });
+        });
+    },
+    queryThisMonthDailyTran: function (req, res, next) {
+        pool.getConnection(function (err, connection) {
+            connection.query($sql.queryThisMonthDailyTran, function (err, result) {
+                console.log(result, err);
+                jsonWrite(res, result);
+                connection.release();
+            });
+        });
+    },
 
+    queryHourlyTranBydate: function (req, res, next) {
+        var date = req.query.date;
+        // var date = '2019-07-14';
 
+        pool.getConnection(function (err, connection) {
+            connection.query($sql.queryHourlyTranBydate, date ,  function (err, result) {
+                console.log(result, err);
+                jsonWrite(res, result);
+                connection.release();
+            });
+        });
+    },
+    queryDailyTranByMonthYear: function (req, res, next) {
+        var month = req.query.month;
+        var year = req.query.year;
+
+        pool.getConnection(function (err, connection) {
+            connection.query($sql.queryDailyTranByMonthYear, [month,year] ,  function (err, result) {
+                console.log(result, err);
+                jsonWrite(res, result);
+                connection.release();
+            });
+        });
+    },
+
+    queryMonthlyTranByYear: function (req, res, next) {
+        var year = req.query.year;
+        // var date = '2019-07-14';
+
+        pool.getConnection(function (err, connection) {
+            connection.query($sql.queryMonthlyTranByYear, year ,  function (err, result) {
+                console.log(result, err);
+                jsonWrite(res, result);
+                connection.release();
+            });
+        });
+    },
+   
 };

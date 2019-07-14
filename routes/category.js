@@ -66,4 +66,33 @@ router.get('/queryCategoryYesterday',function(req,res,next){
 router.get('/queryTaxes',function(req,res,next){
     categoryDao.queryTaxes(req,res,next);
 });
+
+router.get('/queryTodayHourlyTran',function(req,res,next){
+    categoryDao.queryTodayHourlyTran(req,res,next);
+});
+
+router.get('/queryThisMonthDailyTran',function(req,res,next){
+    categoryDao.queryThisMonthDailyTran(req,res,next);
+});
+
+router.get('/queryThisYearMonthlyTran',function(req,res,next){
+    categoryDao.queryThisYearMonthlyTran(req,res,next);
+});
+
+
+router.get('/queryThisYearMonthlyTran',function(req,res,next){
+    categoryDao.queryThisYearMonthlyTran(req,res,next);
+});
+router.get('/queryHourlyTranBydate',function(req,res,next){
+    categoryDao.queryHourlyTranBydate(req,res,next);
+});
+router.get('/queryDailyTranByMonthYear',function(req,res,next){
+    categoryDao.queryDailyTranByMonthYear(req,res,next);
+});
+router.get('/queryMonthlyTranByYear',function(req,res,next){
+    categoryDao.queryMonthlyTranByYear(req,res,next);
+});
+
+
+
 module.exports = router;
