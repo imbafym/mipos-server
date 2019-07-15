@@ -8,7 +8,7 @@ var user = {
     queryById: 'select * from people where id=?',
     queryAll: 'select * from people',
     login:'select * from people where name=?',
-    getBusinessName: 'select BUSINESS_NAME from miportal.config'
+    getBusinessName: 'select BUSINESS_NAME from config'
 };
 
 module.exports = user;
