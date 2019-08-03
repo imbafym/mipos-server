@@ -35,15 +35,21 @@ var categories = {
     queryTodayHourlyTran: 'SELECT hour(r.Datenew) as hour,sum(p.total) as total,count(p.TRANSID) as tran, (sum(p.total)/count(p.TRANSID) ) as avg FROM receipts as r,payments as p ' +
         ' where Convert(r.Datenew,date) = curdate() ' +
         ' and p.receipt = r.id ' +
+        ' and p.payment <> \"cashout\" and p.payment <> \"cashin\"' +
+
         ' group by hour(r.Datenew)',
     queryThisMonthDailyTran: 'SELECT day(r.Datenew) as day,sum(p.total) as total,count(p.TRANSID) as tran, (sum(p.total)/count(p.TRANSID) ) as avg FROM receipts as r,payments as p ' +
         ' where month(r.Datenew) = Month(curdate())' +
         ' and year(r.Datenew) = Year(curdate())' +
         ' and p.receipt = r.id' +
+        ' and p.payment <> \"cashout\" and p.payment <> \"cashin\"' +
+
         ' group by day(r.Datenew);',
-    queryThisYearMonthlyTran: 'SELECT distinct month(r.Datenew) as month,ifnull(sum(p.total),0) as total, ifnull(count(p.TRANSID),0) as tran, round((sum(p.total)/count(p.TRANSID) ),2) as avg FROM receipts as r,payments as p ' +
+    queryThisYearMonthlyTran: 'SELECT distinct month(r.Datenew) as month,ifnull(sum(p.total),0) as total,' + 
+        'ifnull(count(p.TRANSID),0) as tran, round((sum(p.total)/count(p.TRANSID) ),2) as avg FROM receipts as r,payments as p ' +
         ' where year(r.Datenew) = Year(curdate())' +
-        ' and p.receipt = r.id' +
+        ' and p.receipt = r.id' + 
+        ' and p.payment <> \"cashout\" and p.payment <> \"cashin\"' +
         ' group by month(r.Datenew);',
 
     queryHourlyTranBydate: ' SELECT hour(r.Datenew) as hour,sum(p.total) as total,count(p.TRANSID) as tran, (sum(p.total)/count(p.TRANSID) ) as avg FROM receipts as r,payments as p' +
