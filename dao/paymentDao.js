@@ -100,7 +100,7 @@ module.exports = {
 
         console.log(firstDay, lastDay)
         pool.getConnection(function (err, connection) {
-            connection.query($sql.test, [firstDay, lastDay], function (err, result) {
+            connection.query($sql.queryByGivenDate, [firstDay, lastDay], function (err, result) {
                 console.log(err);
                 console.log(result);
 
@@ -125,7 +125,7 @@ module.exports = {
 
         console.log(firstDay, lastDay)
         pool.getConnection(function (err, connection) {
-            connection.query($sql.test, [firstDay, lastDay], function (err, result) {
+            connection.query($sql.queryByGivenDate, [firstDay, lastDay], function (err, result) {
                 console.log(err);
                 console.log(result);
 
@@ -162,7 +162,7 @@ module.exports = {
 
         console.log(firstDay, lastDay)
         pool.getConnection(function (err, connection) {
-            connection.query($sql.test, [firstDay, lastDay], function (err, result) {
+            connection.query($sql.queryByGivenDate, [firstDay, lastDay], function (err, result) {
                 console.log(err);
                 console.log(result);
                 jsonWrite(res, result);

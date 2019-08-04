@@ -6,11 +6,19 @@ var today = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
 var payments = {
 
     queryAll: 'select payments.payment as paymethod , total from payments',
+    // this includes cashin and cashout
     queryByDate: 'SELECT payments.payment as paymethod, SUM(total) as total ' +
-        'FROM receipts, tickets,payments ' +
-        'WHERE tickets.id=receipts.id ' +
-        'AND payments.receipt = receipts.id ' +
+        'FROM receipts,payments ' +
+        'WHERE  ' +
+        'payments.receipt = receipts.id ' +
         'AND DATE(receipts.datenew)=DATE(?) GROUP BY payments.payment',
+
+        // this is without cashin and cashout
+        // queryByDate: 'SELECT payments.payment as paymethod, SUM(total) as total ' +
+        // 'FROM receipts, tickets,payments ' +
+        // 'WHERE tickets.id=receipts.id ' +
+        // 'AND payments.receipt = receipts.id ' +
+        // 'AND DATE(receipts.datenew)=DATE(?) GROUP BY payments.payment',
     queryLastSevenDays:
         'SELECT payments.payment as paymethod,SUM(total) as total  FROM receipts,tickets,payments  ' +
         'where tickets.id=receipts.id ' +
@@ -34,17 +42,22 @@ var payments = {
         'WHERE tickets.id=receipts.id ' +
         'AND payments.receipt = receipts.id' +
         'AND DATE(receipts.datenew)=?',
-    test1:
-        'SELECT receipts.datenew' +
-        ' FROM receipts,payments,tickets ' +
-        ' WHERE receipts.id = payments.id ' +
-        ' AND tickets.id=receipts.id' +
-        ' AND DATE_FORMAT(receipts.datenew,"%Y-%m") = "2018-10";',
-    test:
+    // this is not include cashin and cashout
+    // queryByGivenDate:
+    //     'SELECT payments.payment as paymethod,SUM(total) as total ' +
+    //     'FROM receipts,tickets,payments  ' +
+    //     'where tickets.id=receipts.id ' +
+    //     'AND payments.receipt = receipts.id ' +
+    //     'AND DATE(receipts.datenew)' +
+    //     'between ? and ? ' +
+    //     'GROUP BY payments.payment;',
+
+    //this include cash and cashout
+        queryByGivenDate:
         'SELECT payments.payment as paymethod,SUM(total) as total ' +
-        'FROM receipts,tickets,payments  ' +
-        'where tickets.id=receipts.id ' +
-        'AND payments.receipt = receipts.id ' +
+        'FROM receipts,payments  ' +
+        'where  ' +
+        'payments.receipt = receipts.id ' +
         'AND DATE(receipts.datenew)' +
         'between ? and ? ' +
         'GROUP BY payments.payment;',
