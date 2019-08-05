@@ -121,6 +121,19 @@ module.exports = {
     },
 
 
+    queryCustomerName:function(req, res, next) {
+        var name = req.query.username;
+
+        pool.getConnection(function(err, connection) {
+            connection.query($sql.getCustomer, name, function(err, result) {
+                jsonWrite(res, result);
+                console.log(err)
+                connection.release();
+            });
+        });
+    },
+
+
     queryBusinessName:function(req, res, next) {
         var name = req.query.username;
 

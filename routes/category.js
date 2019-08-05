@@ -50,6 +50,27 @@ router.get('/queryProductYesterday',function(req,res,next){
 });
 
 /////////////////////////////
+router.get('/queryDirectSaleCategoriesProductSalesWithDate',function(req,res,next){
+    categoryDao.queryDirectSaleCategoriesProductSalesWithDate(req,res,next);
+});
+router.get('/queryDirectSaleProductToday',function(req,res,next){
+    categoryDao.queryDirectSaleProductToday(req,res,next);
+});
+router.get('/queryDirectSaleProductYesterday',function(req,res,next){
+    categoryDao.queryDirectSaleProductYesterday(req,res,next);
+});
+router.get('/queryDirectSaleProductLastMonth',function(req,res,next){
+    categoryDao.queryDirectSaleCategoriesProductSalesLastMonth(req,res,next);
+});
+router.get('/queryDirectSaleProductThisMonth',function(req,res,next){
+    categoryDao.queryDirectSaleCategoriesProductSalesThisMonth(req,res,next);
+});
+
+
+
+
+
+/////////////////////////////
 router.get('/queryCategoryLastMonth',function(req,res,next){
     categoryDao.queryCategoriesSalesLastMonth(req,res,next);
 });

@@ -128,6 +128,94 @@ module.exports = {
             });
         });
     },
+    queryDirectSaleCategoriesProductSalesWithDate:function (req, res, next) {
+        var dateFrom = req.query.dateFrom;
+        var dateTo = req.query.dateTo;
+        var cate = req.query.category;
+        pool.getConnection(function(err, connection) {
+
+                sql = $sql.queryDirectSaleCategoriesProductSalesWithDate
+
+
+            connection.query(sql,[dateFrom,dateTo], function(err, result) {
+                if(err){
+                    console.log(err);
+                }
+                console.log(result)
+                jsonWrite(res, result);
+                connection.release();
+            });
+        });
+    },
+
+
+
+
+    queryDirectSaleCategoriesProductSalesThisMonth:function (req, res, next) {
+
+        var nowdays = new Date();
+        var year = nowdays.getFullYear();
+        var month = nowdays.getMonth()+1;
+        if (month == 0) {
+            month = 12;
+            year = year - 1;
+        }
+        if (month < 10) {
+            month = "0" + month;
+        }
+        var firstDay = year + "-" + month + "-" + "01";// zhe个月的第一天
+        var myDate = new Date(year, month, 0);
+        var lastDay = year + "-" + month + "-" + myDate.getDate();// zhe个月的最后一天
+  
+        pool.getConnection(function(err, connection) {
+  
+            sql = $sql.queryDirectSaleCategoriesProductSalesWithDate
+  
+            connection.query(sql,[firstDay,lastDay], function(err, result) {
+                if(err){
+                    console.log(err);
+                }
+                console.log(result)
+                jsonWrite(res, result);
+                connection.release();
+            });
+        });
+    },
+
+
+    queryDirectSaleCategoriesProductSalesLastMonth:function (req, res, next) {
+
+        var nowdays = new Date();
+        var year = nowdays.getFullYear();
+        var month = nowdays.getMonth();
+        if (month == 0) {
+            month = 12;
+            year = year - 1;
+        }
+        if (month < 10) {
+            month = "0" + month;
+        }
+        var firstDay = year + "-" + month + "-" + "01";// 上个月的第一天
+        var myDate = new Date(year, month, 0);
+        var lastDay = year + "-" + month + "-" + myDate.getDate();// 上个月的最后一天
+
+        pool.getConnection(function(err, connection) {
+
+            sql = $sql.queryDirectSaleCategoriesProductSalesWithDate
+
+            connection.query(sql,[firstDay,lastDay], function(err, result) {
+                if(err){
+                    console.log(err);
+                }
+                console.log(result)
+                jsonWrite(res, result);
+                connection.release();
+            });
+        });
+    },
+
+
+
     queryCategoriesSalesLastMonth:function (req, res, next) {
 
         var nowdays = new Date();
@@ -231,6 +319,33 @@ module.exports = {
             });
         });
     },
+    queryDirectSaleProductToday: function (req, res, next) {
+        var today = getDateStr(0);
+        pool.getConnection(function (err, connection) {
+            connection.query($sql.queryDirectSaleCategoriesProductSalesWithOneDate1, today, function (err, result) {
+
+                console.log(result, err);
+                console.log('today', err);
+
+                jsonWrite(res, result);
+                connection.release();
+            });
+        });
+    },
+    queryDirectSaleProductYesterday: function (req, res, next) {
+        var yesterday = getDateStr(-1);
+        pool.getConnection(function (err, connection) {
+            connection.query($sql.queryDirectSaleCategoriesProductSalesWithOneDate1, yesterday, function (err, result) {
+                console.log(result, err);
+
+                jsonWrite(res, result);
+                connection.release();
+            });
+        });
+    },
+
+
+
     queryCategoriesProductToday: function (req, res, next) {
         var today = getDateStr(0);
         pool.getConnection(function (err, connection) {

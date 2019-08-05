@@ -8,7 +8,8 @@ var user = {
     queryById: 'select * from people where id=?',
     queryAll: 'select * from people',
     login:'select * from people where name=?',
-    getBusinessName: 'select BUSINESS_NAME from config'
+    getBusinessName: 'select BUSINESS_NAME from config',
+    getCustomer: 'select id, name from customers'
 };
 
 module.exports = user;
