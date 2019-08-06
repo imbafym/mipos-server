@@ -65,7 +65,16 @@ router.get('/queryDirectSaleProductLastMonth',function(req,res,next){
 router.get('/queryDirectSaleProductThisMonth',function(req,res,next){
     categoryDao.queryDirectSaleCategoriesProductSalesThisMonth(req,res,next);
 });
-
+/////////////////////////////
+router.get('/queryDeletedItem',function(req,res,next){
+    categoryDao.queryDeletedItem(req,res,next);
+});
+router.get('/queryFlushDeletedView',function(req,res,next){
+    categoryDao.queryFlushDeletedView(req,res,next);
+});
+router.get('/queryFlushDeletedtickets',function(req,res,next){
+    categoryDao.queryFlushDeletedtickets(req,res,next);
+});
 
 
 
