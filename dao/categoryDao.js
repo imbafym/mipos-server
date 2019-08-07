@@ -276,6 +276,53 @@ module.exports = {
           });
       });
   },
+
+  queryProductWithCategoryAndUserAndDiscountWithAllCustomer:function (req, res, next) {
+
+    var dateFrom = req.query.dateFrom;
+    var dateTo = req.query.dateTo;
+    var cate = req.query.category;
+
+    pool.getConnection(function(err, connection) {
+
+        sql = $sql.queryProductWithCategoryAndUserAndDiscountWithAllCustomer
+
+        connection.query(sql,[dateFrom,dateTo], function(err, result) {
+            if(err){
+                console.log(err);
+            }
+            console.log(result)
+            jsonWrite(res, result);
+            connection.release();
+        });
+    });
+},
+
+queryProductWithCategoryAndUserAndDiscountwithCustomer:function (req, res, next) {
+
+    var dateFrom = req.query.dateFrom;
+    var dateTo = req.query.dateTo;
+    var cate = req.query.category;
+
+    pool.getConnection(function(err, connection) {
+
+        sql = $sql.queryProductWithCategoryAndUserAndDiscountwithCustomer
+
+        connection.query(sql,[dateFrom,dateTo], function(err, result) {
+            if(err){
+                console.log(err);
+            }
+            console.log(result)
+            jsonWrite(res, result);
+            connection.release();
+        });
+    });
+},
+
+
+
+
+
     queryCategoriesSalesThisMonth:function (req, res, next) {
 
         var nowdays = new Date();

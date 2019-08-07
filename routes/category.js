@@ -33,6 +33,12 @@ router.get('/queryCategoriesSalesWithDate',function(req,res,next){
 router.get('/queryCategoriesProductSalesWithDate',function(req,res,next){
     categoryDao.queryCategoriesProductSalesWithDate(req,res,next);
 });
+router.get('/queryProductWithCategoryAndUserAndDiscountWithAllCustomer',function(req,res,next){
+    categoryDao.queryProductWithCategoryAndUserAndDiscountWithAllCustomer(req,res,next);
+});
+router.get('/queryProductWithCategoryAndUserAndDiscountWithCustomer',function(req,res,next){
+    categoryDao.queryProductWithCategoryAndUserAndDiscountwithCustomer(req,res,next);
+});
 
 
 /////////////////////////////
