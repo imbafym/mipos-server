@@ -10,7 +10,7 @@ var user = {
     login:'select * from people where name=?',
     getBusinessName: 'select BUSINESS_NAME from config',
     getCustomer: 'select id, name from customers',
-    getUsers: `SELECT  ID as userId, Name as userName FROM people`
+    getUsers: 'SELECT  ID as userId, Name as userName FROM people'
 };
 
 module.exports = user;
