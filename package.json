@@ -4,7 +4,7 @@
   "main": "app.js",
   "private": true,
   "scripts": {
-    "start": "electron .",
+    "start": "node ./bin/www .",
     "dev": "nodemon ./bin/www",
     "dev:port": "nodemon ./bin/www port"
   },
@@ -23,7 +23,6 @@
     "swagger-ui-dist": "^3.22.2"
   },
   "devDependencies": {
-    "electron": "^3.1.10",
     "http-proxy-middleware": "^0.19.1",
     "nodemon": "^1.19.1"
   }
