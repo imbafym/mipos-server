@@ -133,6 +133,18 @@ module.exports = {
         });
     },
 
+    queryAllUsers:function(req, res, next) {
+
+
+        pool.getConnection(function(err, connection) {
+            connection.query($sql.getUsers, function(err, result) {
+                jsonWrite(res, result);
+                console.log(err)
+                connection.release();
+            });
+        });
+    },
+
 
     queryBusinessName:function(req, res, next) {
         var name = req.query.username;

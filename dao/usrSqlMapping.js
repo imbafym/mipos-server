@@ -9,7 +9,8 @@ var user = {
     queryAll: 'select * from people',
     login:'select * from people where name=?',
     getBusinessName: 'select BUSINESS_NAME from config',
-    getCustomer: 'select id, name from customers'
+    getCustomer: 'select id, name from customers',
+    getUsers: `SELECT  ID as userId, Name as userName FROM people`
 };
 
 module.exports = user;
