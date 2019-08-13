@@ -7,16 +7,18 @@ Then
 
 
 
-SELECT  t.ticket as ticketId, 
-p.payment as paytype,
-pp.name as user, pp.id as userId,
-r.datenew as date, 
-Round((t.units*t.price*(1+(select rate from taxes where taxes.id = t.taxid))),2) as sales
-
-        FROM  ticketlines as t, receipts  as r, payments as p, tickets as tc, customers as c, people as pp
-         WHERE t.ticket = r.ID 
-         and t.ticket = tc.id
-         and tc.customer = c.id
-         and p.receipt = t.ticket
-         and pp.id = tc.person
-         And t.product is null 
+ SELECT 
+ day(r.Datenew) as day,
+ sum(p.total) as total,
+ count(p.TRANSID) as tran, 
+ (sum(p.total)/count(p.TRANSID) ) as avg 
+ FROM receipts as r,payments as p , tickets t
+          
+          where month(r.Datenew) = Month(curdate())   
+          and year(r.Datenew) = Year(curdate())   
+          and p.receipt = r.id   
+          and t.id = p.receipt
+          and p.payment <> "cashout" and p.payment <> "cashin"   
+          and p.payment <> "paper out"   
+          group by day(r.Datenew); 
+          
