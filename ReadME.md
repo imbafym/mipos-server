@@ -7,18 +7,12 @@ Then
 
 
 
- SELECT 
- day(r.Datenew) as day,
- sum(p.total) as total,
- count(p.TRANSID) as tran, 
- (sum(p.total)/count(p.TRANSID) ) as avg 
- FROM receipts as r,payments as p , tickets t
-          
-          where month(r.Datenew) = Month(curdate())   
+    select  day(r.Datenew)as day, count(t.id) as tran, sum(p.total) as total from payments p, tickets t, receipts r 
+          where p.receipt = r.id
+          and month(r.Datenew) = Month(curdate())   
           and year(r.Datenew) = Year(curdate())   
-          and p.receipt = r.id   
-          and t.id = p.receipt
-          and p.payment <> "cashout" and p.payment <> "cashin"   
+            and p.payment <> "cashout" and p.payment <> "cashin"   
           and p.payment <> "paper out"   
-          group by day(r.Datenew); 
+          and t.id = r.id
+          group by day(r.datenew)
           
