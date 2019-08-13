@@ -38,8 +38,8 @@ var categories = {
         '  WHERE t.ticket = r.ID' +
         ' And t.product is null' +
         ' and Date(r.datenew) = Date(?)',
-
-    queryDirectSaleCategoriesProductSalesWithOneDate1:
+    //old
+    queryDirectSaleCategoriesProductSalesWithOneDateOld:
         'SELECT t.taxid as taxRate, tc.TICKETID as ticketId,p.payment as paytype,c.name as customerName, c.id as customerId,r.datenew as date,p.total as sales' +
         ' FROM  ticketlines as t, receipts  as r, payments as p, tickets as tc, customers as c' +
         ' WHERE t.ticket = r.ID ' +
@@ -48,7 +48,14 @@ var categories = {
         ' and p.receipt = t.ticket' +
         ' And t.product is null ' +
         ' and Date(r.datenew) = Date(?)',
+        queryDirectSaleCategoriesProductSalesWithOneDate1:
+        'SELECT  t.ticket as ticketId, ' +
+        ' p.payment as paytype,pp.name as user, pp.id as userId,r.datenew as date, Round((t.units*t.price*(1+(select rate from taxes where taxes.id = t.taxid))),2) as sales ' +
+        ' FROM  ticketlines as t, receipts  as r, payments as p, tickets as tc,  people as pp' +
+        ' WHERE t.ticket = r.ID ' +
+        ' and t.ticket = tc.id and p.receipt = t.ticket and pp.id = tc.person And t.product is null And Date(r.datenew) = Date(?)',
 
+        //old
     queryDirectSaleCategoriesProductSalesWithDate:
         'SELECT t.taxid as taxRate, tc.TICKETID as ticketId,p.payment as paytype,c.name as customerName,c.id as customerId,r.datenew as date,p.total as sales' +
         ' FROM  ticketlines as t, receipts  as r, payments as p, tickets as tc, customers as c' +
