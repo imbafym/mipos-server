@@ -134,7 +134,7 @@ module.exports = {
         var cate = req.query.category;
         pool.getConnection(function(err, connection) {
 
-                sql = $sql.queryDirectSaleCategoriesProductSalesWithDate
+                sql = $sql.queryDirectSaleCategoriesProductSalesWithDateUpdated
 
 
             connection.query(sql,[dateFrom,dateTo], function(err, result) {
@@ -169,7 +169,7 @@ module.exports = {
   
         pool.getConnection(function(err, connection) {
   
-            sql = $sql.queryDirectSaleCategoriesProductSalesWithDate
+            sql = $sql.queryDirectSaleCategoriesProductSalesWithDateUpdated
   
             connection.query(sql,[firstDay,lastDay], function(err, result) {
                 if(err){
@@ -201,7 +201,7 @@ module.exports = {
 
         pool.getConnection(function(err, connection) {
 
-            sql = $sql.queryDirectSaleCategoriesProductSalesWithDate
+            sql = $sql.queryDirectSaleCategoriesProductSalesWithDateUpdated
 
             connection.query(sql,[firstDay,lastDay], function(err, result) {
                 if(err){

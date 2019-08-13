@@ -59,6 +59,13 @@ var categories = {
         ' And t.product is null ' +
         ' and Date(r.datenew) between ? AND ?',
 
+    queryDirectSaleCategoriesProductSalesWithDateUpdated:
+        'SELECT  t.ticket as ticketId, ' +
+        ' p.payment as paytype,pp.name as user, pp.id as userId,r.datenew as date, Round((t.units*t.price*(1+(select rate from taxes where taxes.id = t.taxid))),2) as sales ' +
+        ' FROM  ticketlines as t, receipts  as r, payments as p, tickets as tc,  people as pp' +
+        ' WHERE t.ticket = r.ID ' +
+        ' and t.ticket = tc.id and p.receipt = t.ticket and pp.id = tc.person And t.product is null And Date(r.datenew) between ? and ?',
+
     /////////////////////////////////////////
     queryDeletedItem:
         'SELECT d.datenew as date, d.product_name as productName, d.multiply as qty, d.total as sale, d.customer as customer, d.user as user' +
@@ -90,7 +97,7 @@ var categories = {
         ' and tl.ticket = r.id' +
         ' and t.id = tl.ticket' +
         ' and tl.product = p.id' +
-        ' and date(r.datenew) between ? and ?'+
+        ' and date(r.datenew) between ? and ?' +
         ' group by p.Name,tl.TAXID',
 
 
@@ -103,41 +110,41 @@ var categories = {
         ' where Convert(r.Datenew,date) = curdate() ' +
         ' and p.receipt = r.id ' +
         ' and p.payment <> \"cashout\" and p.payment <> \"cashin\"' +
-        ' and p.payment <> \"paper out\"'+
+        ' and p.payment <> \"paper out\"' +
         ' group by hour(r.Datenew)',
     queryThisMonthDailyTran: 'SELECT day(r.Datenew) as day,sum(p.total) as total,count(p.TRANSID) as tran, (sum(p.total)/count(p.TRANSID) ) as avg FROM receipts as r,payments as p ' +
         ' where month(r.Datenew) = Month(curdate())' +
         ' and year(r.Datenew) = Year(curdate())' +
         ' and p.receipt = r.id' +
         ' and p.payment <> \"cashout\" and p.payment <> \"cashin\"' +
-        ' and p.payment <> \"paper out\"'+
+        ' and p.payment <> \"paper out\"' +
         ' group by day(r.Datenew);',
     queryThisYearMonthlyTran: 'SELECT distinct month(r.Datenew) as month,ifnull(sum(p.total),0) as total,' +
         'ifnull(count(p.TRANSID),0) as tran, round((sum(p.total)/count(p.TRANSID) ),2) as avg FROM receipts as r,payments as p ' +
         ' where year(r.Datenew) = Year(curdate())' +
         ' and p.receipt = r.id' +
         ' and p.payment <> \"cashout\" and p.payment <> \"cashin\"' +
-        ' and p.payment <> \"paper out\"'+
+        ' and p.payment <> \"paper out\"' +
         ' group by month(r.Datenew);',
 
     queryHourlyTranBydate: ' SELECT hour(r.Datenew) as hour,sum(p.total) as total,count(p.TRANSID) as tran, (sum(p.total)/count(p.TRANSID) ) as avg FROM receipts as r,payments as p' +
         ' where Convert(r.Datenew,date) = ?' +
         ' and p.receipt = r.id' +
         ' and p.payment <> \"cashout\" and p.payment <> \"cashin\"' +
-        ' and p.payment <> \"paper out\"'+
+        ' and p.payment <> \"paper out\"' +
         ' group by hour(r.Datenew)',
     queryDailyTranByMonthYear: ' SELECT day(r.Datenew) as day,sum(p.total) as total,count(p.TRANSID) as tran, (sum(p.total)/count(p.TRANSID) ) as avg FROM receipts as r,payments as p' +
         ' where month(r.Datenew) = ?' +
         ' and year(r.Datenew) = ?' +
         ' and p.receipt = r.id' +
         ' and p.payment <> \"cashout\" and p.payment <> \"cashin\"' +
-        ' and p.payment <> \"paper out\"'+
+        ' and p.payment <> \"paper out\"' +
         ' group by day(r.Datenew);',
     queryMonthlyTranByYear: ' SELECT month(r.Datenew) as month,sum(p.total) as total,count(p.TRANSID) as tran, (sum(p.total)/count(p.TRANSID) ) as avg FROM receipts as r,payments as p' +
         ' where year(r.Datenew) = ?' +
         ' and p.receipt = r.id' +
         ' and p.payment <> \"cashout\" and p.payment <> \"cashin\"' +
-        ' and p.payment <> \"paper out\"'+
+        ' and p.payment <> \"paper out\"' +
         ' group by month(r.Datenew);'
 
 };
