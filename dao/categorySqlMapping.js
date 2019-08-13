@@ -106,20 +106,35 @@ var categories = {
     queryAllTaxes: 'select taxes.ID as ID, taxes.name as name, taxes.rate as rate, taxes.category as taxCategory from taxes',
 
 
-    queryTodayHourlyTran: 'SELECT hour(r.Datenew) as hour,sum(p.total) as total,count(p.TRANSID) as tran, (sum(p.total)/count(p.TRANSID) ) as avg FROM receipts as r,payments as p ' +
+    queryTodayHourlyTran1: 'SELECT hour(r.Datenew) as hour,sum(p.total) as total,count(p.TRANSID) as tran, (sum(p.total)/count(p.TRANSID) ) as avg FROM receipts as r,payments as p ' +
         ' where Convert(r.Datenew,date) = curdate() ' +
         ' and p.receipt = r.id ' +
         ' and p.payment <> \"cashout\" and p.payment <> \"cashin\"' +
         ' and p.payment <> \"paper out\"' +
         ' group by hour(r.Datenew)',
-    queryThisMonthDailyTran: 'SELECT day(r.Datenew) as day,sum(p.total) as total,count(p.TRANSID) as tran, (sum(p.total)/count(p.TRANSID) ) as avg FROM receipts as r,payments as p ' +
+    queryTodayHourlyTran: 'SELECT hour(r.Datenew) as hour,sum(p.total) as total,count(distinct(t.id)) as tran, (sum(p.total)/count(distinct(t.id))) as avg FROM receipts as r,payments as p , tickets as t ' +
+        ' where Convert(r.Datenew,date) = curdate() ' +
+        ' and p.receipt = r.id ' +
+        ' and t.id = r.id' +
+        ' and p.payment <> \"cashout\" and p.payment <> \"cashin\"' +
+        ' and p.payment <> \"paper out\"' +
+        ' group by hour(r.Datenew)',
+    queryThisMonthDailyTran1: 'SELECT day(r.Datenew) as day,sum(p.total) as total,count(p.TRANSID) as tran, (sum(p.total)/count(p.TRANSID) ) as avg FROM receipts as r,payments as p ' +
         ' where month(r.Datenew) = Month(curdate())' +
         ' and year(r.Datenew) = Year(curdate())' +
         ' and p.receipt = r.id' +
         ' and p.payment <> \"cashout\" and p.payment <> \"cashin\"' +
         ' and p.payment <> \"paper out\"' +
         ' group by day(r.Datenew);',
-    queryThisYearMonthlyTran: 'SELECT distinct month(r.Datenew) as month,ifnull(sum(p.total),0) as total,' +
+    queryThisMonthDailyTran: 'SELECT day(r.Datenew) as day,sum(p.total) as total,count(distinct(t.id)) as tran, (sum(p.total)/count(distinct(t.id))) as avg FROM receipts as r,payments as p, tickets as t ' +
+        ' where month(r.Datenew) = Month(curdate())' +
+        ' and year(r.Datenew) = Year(curdate())' +
+        ' and p.receipt = r.id  ' +
+        ' and t.id = r.id' +
+        ' and p.payment <> \"cashout\" and p.payment <> \"cashin\"' +
+        ' and p.payment <> \"paper out\"' +
+        ' group by day(r.Datenew);',
+        queryThisYearMonthlyTran1: 'SELECT distinct month(r.Datenew) as month,ifnull(sum(p.total),0) as total,' +
         'ifnull(count(p.TRANSID),0) as tran, round((sum(p.total)/count(p.TRANSID) ),2) as avg FROM receipts as r,payments as p ' +
         ' where year(r.Datenew) = Year(curdate())' +
         ' and p.receipt = r.id' +
@@ -127,20 +142,54 @@ var categories = {
         ' and p.payment <> \"paper out\"' +
         ' group by month(r.Datenew);',
 
-    queryHourlyTranBydate: ' SELECT hour(r.Datenew) as hour,sum(p.total) as total,count(p.TRANSID) as tran, (sum(p.total)/count(p.TRANSID) ) as avg FROM receipts as r,payments as p' +
+    queryThisYearMonthlyTran: 'SELECT distinct month(r.Datenew) as month,ifnull(sum(p.total),0) as total,' +
+        'ifnull(count(distinct(t.id)),0) as tran, round((sum(p.total)/count(distinct(t.id)) ),2) as avg FROM receipts as r,payments as p, tickets as t ' +
+        ' where year(r.Datenew) = Year(curdate())' +
+        ' and p.receipt = r.id' +
+        ' and t.id = r.id' +
+        ' and p.payment <> \"cashout\" and p.payment <> \"cashin\"' +
+        ' and p.payment <> \"paper out\"' +
+        ' group by month(r.Datenew);',
+
+        queryHourlyTranBydate: 'SELECT hour(r.Datenew) as hour,sum(p.total) as total,count(distinct(t.id)) as tran, (sum(p.total)/count(distinct(t.id))) as avg FROM receipts as r,payments as p , tickets as t ' +
+        ' where Convert(r.Datenew,date) = ? ' +
+        ' and p.receipt = r.id ' +
+        ' and t.id = r.id' +
+        ' and p.payment <> \"cashout\" and p.payment <> \"cashin\"' +
+        ' and p.payment <> \"paper out\"' +
+        ' group by hour(r.Datenew)',
+
+
+
+    queryHourlyTranBydate1: ' SELECT hour(r.Datenew) as hour,sum(p.total) as total,count(p.TRANSID) as tran, (sum(p.total)/count(p.TRANSID) ) as avg FROM receipts as r,payments as p' +
         ' where Convert(r.Datenew,date) = ?' +
         ' and p.receipt = r.id' +
         ' and p.payment <> \"cashout\" and p.payment <> \"cashin\"' +
         ' and p.payment <> \"paper out\"' +
         ' group by hour(r.Datenew)',
-    queryDailyTranByMonthYear: ' SELECT day(r.Datenew) as day,sum(p.total) as total,count(p.TRANSID) as tran, (sum(p.total)/count(p.TRANSID) ) as avg FROM receipts as r,payments as p' +
+    queryDailyTranByMonthYear: ' SELECT day(r.Datenew) as day,sum(p.total) as total,count(distinct(t.id))  as tran, (sum(p.total)/count(distinct(t.id)) ) as avg FROM receipts as r,payments as p, tickets as t ' +
+        ' where month(r.Datenew) = ?' +
+        ' and year(r.Datenew) = ?' +
+        ' and p.receipt = r.id' +
+        ' and t.id = r.id' +
+        ' and p.payment <> \"cashout\" and p.payment <> \"cashin\"' +
+        ' and p.payment <> \"paper out\"' +
+        ' group by day(r.Datenew);',
+        queryDailyTranByMonthYear1: ' SELECT day(r.Datenew) as day,sum(p.total) as total,count(p.TRANSID) as tran, (sum(p.total)/count(p.TRANSID) ) as avg FROM receipts as r,payments as p' +
         ' where month(r.Datenew) = ?' +
         ' and year(r.Datenew) = ?' +
         ' and p.receipt = r.id' +
         ' and p.payment <> \"cashout\" and p.payment <> \"cashin\"' +
         ' and p.payment <> \"paper out\"' +
         ' group by day(r.Datenew);',
-    queryMonthlyTranByYear: ' SELECT month(r.Datenew) as month,sum(p.total) as total,count(p.TRANSID) as tran, (sum(p.total)/count(p.TRANSID) ) as avg FROM receipts as r,payments as p' +
+    queryMonthlyTranByYear: ' SELECT month(r.Datenew) as month,sum(p.total) as total,count(distinct(t.id))  as tran, (sum(p.total)/count(distinct(t.id))) as avg FROM receipts as r,payments as p, tickets as t ' +
+        ' where year(r.Datenew) = ?' +
+        ' and p.receipt = r.id' +
+        ' and t.id = r.id' +
+        ' and p.payment <> \"cashout\" and p.payment <> \"cashin\"' +
+        ' and p.payment <> \"paper out\"' +
+        ' group by month(r.Datenew);',
+        queryMonthlyTranByYear1: ' SELECT month(r.Datenew) as month,sum(p.total) as total,count(p.TRANSID) as tran, (sum(p.total)/count(p.TRANSID) ) as avg FROM receipts as r,payments as p' +
         ' where year(r.Datenew) = ?' +
         ' and p.receipt = r.id' +
         ' and p.payment <> \"cashout\" and p.payment <> \"cashin\"' +
