@@ -279,9 +279,8 @@ module.exports = {
 
   queryProductWithCategoryAndUserAndDiscountWithAllCustomer:function (req, res, next) {
 
-    var dateFrom = req.query.dateFrom;
-    var dateTo = req.query.dateTo;
-    var cate = req.query.category;
+    var dateFrom = Buffer.from(req.query.dateFrom).toString();
+    var dateTo = Buffer.from(req.query.dateTo).toString();
 
     pool.getConnection(function(err, connection) {
 
