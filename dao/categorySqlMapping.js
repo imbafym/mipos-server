@@ -49,7 +49,7 @@ var categories = {
         ' And t.product is null ' +
         ' and Date(r.datenew) = Date(?)',
         queryDirectSaleCategoriesProductSalesWithOneDate1:
-        'SELECT  t.ticket as ticketId, ' +
+        'SELECT  tc.ticketId as ticketId,' +
         ' p.payment as paytype,pp.name as user, pp.id as userId,r.datenew as date, Round((t.units*t.price*(1+(select rate from taxes where taxes.id = t.taxid))),2) as sales ' +
         ' FROM  ticketlines as t, receipts  as r, payments as p, tickets as tc,  people as pp' +
         ' WHERE t.ticket = r.ID ' +
