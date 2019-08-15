@@ -75,7 +75,7 @@ var categories = {
 
     /////////////////////////////////////////
     queryDeletedItem:
-        'SELECT d.datenew as date, d.product_name as productName, d.multiply as qty, Round((d.value* (select rate from taxes where taxes.id = p.taxcat)),2) as sale, d.customer as customer, d.user as user' +
+        'SELECT d.datenew as date, d.product_name as productName, d.multiply as qty, Round((d.value* (1+(select rate from taxes where taxes.id = p.taxcat))),2) as sale, d.customer as customer, d.user as user' +
         ' FROM deletedView d, products p' +
         ' where p.id = d.product_id',
 
