@@ -75,7 +75,7 @@ var categories = {
 
     /////////////////////////////////////////
     queryDeletedItem:
-        'SELECT d.datenew as date, d.product_name as productName, d.multiply as qty, d.total as sale, d.customer as customer, d.user as user' +
+        'SELECT d.datenew as date, d.product_name as productName, d.multiply as qty, Round((d.multiply*d.value),2) as sale, d.customer as customer, d.user as user' +
         ' FROM deletedView d',
 
     queryFlushDeletedView:
