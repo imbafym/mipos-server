@@ -73,6 +73,26 @@ var categories = {
         ' WHERE t.ticket = r.ID ' +
         ' and t.ticket = tc.id and p.receipt = t.ticket and pp.id = tc.person And t.product is null And Date(r.datenew) between ? and ?',
 
+//===================customer Sales=====================================
+   queryCustomerSales:
+   'select c.name as customerName,c.id as id, sum(round(py.TOTAL,2)) as sale  from customers c, payments py, receipts r, tickets t'+
+   ' where t.customer = c.id'+
+   ' and r.id = t.id'+
+   ' and py.receipt = r.id'+
+   ' and py.receipt = t.id'+
+   ' and Date(r.datenew) between ? and ?'+ 
+   ' group by c.name, c.id;',
+//==================User sales========================================
+queryUserSales:
+'select p.name as userName, p.id as id, sum(round(py.TOTAL,2)) as sale  from people p, payments py, receipts r, tickets t'+
+' where t.person = p.id'+
+' and r.id = t.id'+
+' and py.receipt = r.id'+
+' and py.receipt = t.id'+
+' and Date(r.datenew) between ? and ?'+ 
+' group by p.name, p.id;',
+
+
     /////////////////////////////////////////
     queryDeletedItem:
         'SELECT d.datenew as date, d.product_name as productName, d.multiply as qty, Round((d.value* (1+(select rate from taxes where taxes.id = p.taxcat))),2) as sale, d.customer as customer, d.user as user' +

@@ -147,6 +147,36 @@ module.exports = {
             });
         });
     },
+    queryCustomerSales:function (req, res, next) {
+        var dateFrom = req.query.dateFrom;
+        var dateTo = req.query.dateTo;
+        pool.getConnection(function(err, connection) {
+                sql = $sql.queryCustomerSales
+            connection.query(sql,[dateFrom,dateTo], function(err, result) {
+                if(err){
+                    console.log(err);
+                }
+                console.log(result)
+                jsonWrite(res, result);
+                connection.release();
+            });
+        });
+    },
+    queryUserSales:function (req, res, next) {
+        var dateFrom = req.query.dateFrom;
+        var dateTo = req.query.dateTo;
+        pool.getConnection(function(err, connection) {
+                sql = $sql.queryUserSales
+            connection.query(sql,[dateFrom,dateTo], function(err, result) {
+                if(err){
+                    console.log(err);
+                }
+                console.log(result)
+                jsonWrite(res, result);
+                connection.release();
+            });
+        });
+    },
 
 
 
