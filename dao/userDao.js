@@ -132,6 +132,36 @@ module.exports = {
             });
         });
     },
+    queryCustomerInfo:function (req, res, next) {
+    
+        pool.getConnection(function(err, connection) {
+                sql = $sql.queryCustomerInfo
+            connection.query(sql, function(err, result) {
+                if(err){
+                    console.log(err);
+                }
+                console.log(result)
+                jsonWrite(res, result);
+                connection.release();
+            });
+        });
+    },
+
+    queryUserShifts:function (req, res, next) {
+        var dateFrom = req.query.dateFrom;
+        var dateTo = req.query.dateTo;
+        pool.getConnection(function(err, connection) {
+                sql = $sql.queryUserShifts
+            connection.query(sql,[dateFrom,dateTo], function(err, result) {
+                if(err){
+                    console.log(err);
+                }
+                console.log(result)
+                jsonWrite(res, result);
+                connection.release();
+            });
+        });
+    },
 
     queryAllUsers:function(req, res, next) {
 

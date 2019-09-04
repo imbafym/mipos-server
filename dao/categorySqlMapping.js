@@ -92,7 +92,6 @@ queryUserSales:
 ' and Date(r.datenew) between ? and ?'+ 
 ' group by p.name, p.id;',
 
-
     /////////////////////////////////////////
     queryDeletedItem:
         'SELECT d.datenew as date, d.product_name as productName, d.multiply as qty, Round((d.value* (1+(select rate from taxes where taxes.id = p.taxcat))),2) as sale, d.customer as customer, d.user as user' +

@@ -81,6 +81,10 @@ router.get('/queryCustomerSales',function(req,res,next){
 router.get('/queryUserSales',function(req,res,next){
     categoryDao.queryUserSales(req,res,next);
 });
+
+
+
+
 /////////////////////////////
 router.get('/queryDeletedItem',function(req,res,next){
     categoryDao.queryDeletedItem(req,res,next);

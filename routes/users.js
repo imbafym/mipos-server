@@ -41,6 +41,17 @@ router.get('/getCustomers', function(req, res, next) {
     userDao.queryCustomerName(req, res, next);
 });
 
+
+//===============customer info ===================
+router.get('/queryCustomerInfo',function(req,res,next){
+    userDao.queryCustomerInfo(req,res,next);
+});
+
+router.get('/queryUserShifts',function(req,res,next){
+    userDao.queryUserShifts(req,res,next);
+});
+
+
 router.get('/getUsers', function(req, res, next) {
     userDao.queryAllUsers(req, res, next);
 });
