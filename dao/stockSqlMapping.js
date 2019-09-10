@@ -21,6 +21,10 @@ var stocks = {
         ' (SELECT TAXES.RATE FROM TAXES WHERE TAXES.CATEGORY = PRODUCTS.TAXCAT ) AS TAX_RATE ' +
         ' FROM PRODUCTS ' +
         ' WHERE NAME=?',
+
+        queryStockDiary:
+        ' select s.ID, DAtenew as date, reason, p.name, s.units, Round(s.price * (1+ (SELECT TAXES.RATE FROM TAXES WHERE TAXES.CATEGORY = p.TAXCAT) ) ,2) as Price'+
+         ' from stockdiary s , products p where p.id = s.product',
     // queryUpdateCurrentStockByProductID:
     //
     // 'SELECT COUNT(*) as result FROM STOCKCURRENT WHERE STOCKCURRENT.PRODUCT = ?;' +

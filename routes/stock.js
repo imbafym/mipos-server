@@ -20,7 +20,9 @@ router.post('/queryStockByName', function(req, res, next) {
     stockDao.queryByStockByName(req, res, next);
 });
 
-
+router.get('/queryStockDiary', function(req, res, next) {
+    stockDao.queryStockDiary(req, res, next);
+});
 router.post('/queryUpdateCurrentStock', function(req, res, next) {
     stockDao.queryUpdateCurrentStockByProductID(req, res, next);
 });
