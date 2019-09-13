@@ -13,6 +13,15 @@ var stocks = {
         ' (SELECT TAXES.RATE FROM TAXES WHERE TAXES.CATEGORY = PRODUCTS.TAXCAT ) AS TAX_RATE ' +
         ' FROM PRODUCTS ' +
         ' WHERE CODE=?',
+        queryByProductId:
+        ' SELECT ID,CODE,NAME,DISPLAY,' +
+        ' (SELECT CATEGORIES.NAME FROM CATEGORIES WHERE CATEGORIES.ID=PRODUCTS.CATEGORY) AS CAT_NAME,' +
+        ' PRICEBUY,PRICESELL,IMAGE, ' +
+        ' (SELECT STOCKCURRENT.UNITS FROM STOCKCURRENT WHERE STOCKCURRENT.PRODUCT = PRODUCTS.ID) AS STOCK,' +
+        ' (SELECT TAXES.RATE FROM TAXES WHERE TAXES.CATEGORY = PRODUCTS.TAXCAT ) AS TAX_RATE ' +
+        ' FROM PRODUCTS ' +
+        ' WHERE ID=?',
+
         queryByName:
         ' SELECT ID,CODE,NAME,DISPLAY,' +
         ' (SELECT CATEGORIES.NAME FROM CATEGORIES WHERE CATEGORIES.ID=PRODUCTS.CATEGORY) AS CAT_NAME,' +
@@ -23,8 +32,13 @@ var stocks = {
         ' WHERE NAME=?',
 
         queryStockDiary:
-        ' select s.ID, DAtenew as date, reason, p.name, s.units, Round(s.price * (1+ (SELECT TAXES.RATE FROM TAXES WHERE TAXES.CATEGORY = p.TAXCAT) ) ,2) as Price'+
+        ' select s.ID, DAtenew as date, reason, p.name,s.product as productId, s.units, Round(s.price * (1+ (SELECT TAXES.RATE FROM TAXES WHERE TAXES.CATEGORY = p.TAXCAT) ) ,2) as Price'+
          ' from stockdiary s , products p where p.id = s.product',
+
+
+         insertStockDiary:
+         'INSERT INTO `stockdiary` (`ID`, `DATENEW`, `REASON`, `LOCATION`, `PRODUCT`, `ATTRIBUTESETINSTANCE_ID`, `UNITS`, `PRICE`, `EXPIRE_DATE`)'+ 
+         ' VALUES (?, ?, ?, ?, ?, NULL, ?, ?, NULL)',
     // queryUpdateCurrentStockByProductID:
     //
     // 'SELECT COUNT(*) as result FROM STOCKCURRENT WHERE STOCKCURRENT.PRODUCT = ?;' +

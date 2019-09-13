@@ -36,6 +36,19 @@ module.exports = {
             });
         });
     },
+    queryByStockByProductId: function (req, res, next) {
+        var id = req.body.productId;
+      
+        pool.getConnection(function (err, connection) {
+            connection.query($sql.queryByProductId, id,function (err, result) {
+                jsonWrite(res, result);
+                if (err) {
+                    console.log(err, 'this is error in inserting stock diary by id')
+                }
+                connection.release();
+            });
+        });
+    },
     queryByStockByName: function (req, res, next) {
         var productName = req.body.productName;
         pool.getConnection(function (err, connection) {
