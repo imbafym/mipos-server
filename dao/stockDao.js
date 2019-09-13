@@ -36,6 +36,18 @@ module.exports = {
             });
         });
     },
+    queryAllStocks: function (req, res, next) {
+        
+        pool.getConnection(function (err, connection) {
+            connection.query($sql.queryAllStocks, function (err, result) {
+                jsonWrite(res, result);
+                if (err) {
+                    console.log(err, 'this is error in all  stocks')
+                }
+                connection.release();
+            });
+        });
+    },
     queryByStockByProductId: function (req, res, next) {
         var id = req.body.productId;
       

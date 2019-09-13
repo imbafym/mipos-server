@@ -16,6 +16,10 @@ router.post('/queryStockById', function(req, res, next) {
     stockDao.queryByStockByCode(req, res, next);
 });
 
+router.get('/queryAllStocks', function(req, res, next) {
+    stockDao.queryAllStocks(req, res, next);
+});
+
 router.post('/queryStockByProductId', function(req, res, next) {
     stockDao.queryByStockByProductId(req, res, next);
 });
