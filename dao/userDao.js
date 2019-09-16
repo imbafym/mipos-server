@@ -180,9 +180,11 @@ module.exports = {
         var name = req.query.username;
 
         pool.getConnection(function(err, connection) {
+            console.log(err,'this is err')
             connection.query($sql.getBusinessName, name, function(err, result) {
                 jsonWrite(res, result);
                 console.log(err)
+                
                 connection.release();
             });
         });
