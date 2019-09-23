@@ -39,7 +39,9 @@ var stocks = {
         ' WHERE NAME=?',
 
         queryStockDiary:
-        ' select s.ID, DAtenew as date, reason, p.name,s.product as productId, s.units, Round(s.price * (1+ (SELECT TAXES.RATE FROM TAXES WHERE TAXES.CATEGORY = p.TAXCAT) ) ,2) as Price'+
+        ' select s.ID, DAtenew as date, reason, p.name,s.product as productId, s.units, '+ 
+        ' Round(p.pricebuy * (1+ (SELECT TAXES.RATE FROM TAXES WHERE TAXES.CATEGORY = p.TAXCAT) ) ,2) as buy, '+
+        ' Round(s.price * (1+ (SELECT TAXES.RATE FROM TAXES WHERE TAXES.CATEGORY = p.TAXCAT) ) ,2) as Price'+
          ' from stockdiary s , products p where p.id = s.product',
 
 
