@@ -19,8 +19,8 @@ var user = {
     queryUserShifts:
         'select s.pplid as id,  p.name, s.startshift as startTime, s.ENDSHIFT as endTime, Date(s.startshift) as startDate, Date(s.endShift) as endDate, (UNIX_TIMESTAMP(s.ENDSHIFT) -UNIX_TIMESTAMP( s.startshift))/3600 as hours ' +
         ' from shifts s, people p where p.id = s.pplid' +
-        ' and Date(s.startshift)  >= ?',
-        // ' and Date(s.endShift) <= ?',
+        ' and Date(s.startshift)  >= ?' +
+        ' and (Date(s.endShift) <= ? or s.endShift is Null)'
 };
 
 module.exports = user;
