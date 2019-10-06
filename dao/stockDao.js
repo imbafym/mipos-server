@@ -142,8 +142,10 @@ module.exports = {
         var product = req.body.product;
         var units = req.body.units;
         var price = req.body.price;
+        var sell = req.body.sell;
+
         pool.getConnection(function (err, connection) {
-            connection.query($sql.queryInsertRecordInStockDiary, [id, reason, location, product, units, price], function (err, result) {
+            connection.query($sql.queryInsertRecordInStockDiary, [id, reason, location, product, units, price, sell], function (err, result) {
 
                 if (result.affectedRows == 1) {
                     res.json({
